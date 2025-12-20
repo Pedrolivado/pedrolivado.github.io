@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Descubra a Sorte!</title>
 <style>
+/* Базовые стили */
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
@@ -14,9 +15,9 @@ body {
     align-items: center;
     color: #fff;
     overflow: hidden;
-    background: linear-gradient(135deg, #fddb92, #d1fdff);
+    background: linear-gradient(135deg, #fddb92, #d1fdff, #32cd32, #ff4500);
     background-size: 400% 400%;
-    animation: gradientBG 10s ease infinite;
+    animation: gradientBG 15s ease infinite;
 }
 
 @keyframes gradientBG {
@@ -25,10 +26,11 @@ body {
     100%{background-position:0% 50%;}
 }
 
+/* Фон с девушкой */
 .overlay {
     background: url('https://images.unsplash.com/photo-1612822202543-29dcd68a9eae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5N3wwfDB8MXxzZWFyY2h8MXx8YnJhemlsfGVufDB8fHx8MTY5Nzg4Njc4MQ&ixlib=rb-4.0.3&q=80&w=1080') no-repeat center center;
     background-size: cover;
-    filter: brightness(0.6);
+    filter: brightness(0.5) saturate(1.2);
     position: absolute;
     top: 0; left: 0;
     width: 100%;
@@ -36,40 +38,44 @@ body {
     z-index: 1;
 }
 
+/* Контейнер с контентом */
 .content {
     position: relative;
     z-index: 2;
     text-align: center;
     padding: 30px 20px;
-    border-radius: 20px;
+    border-radius: 25px;
     background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(7px);
     animation: fadeInUp 1s ease forwards;
 }
 
+/* Анимация появления */
 @keyframes fadeInUp {
     0% {opacity:0; transform: translateY(50px);}
     100% {opacity:1; transform: translateY(0);}
 }
 
+/* Заголовок */
 h1 {
-    font-size: 2.8em;
+    font-size: 3em;
     margin-bottom: 15px;
     color: #ffdd00;
-    text-shadow: 2px 2px 8px #000;
+    text-shadow: 2px 2px 10px #000;
     animation: pulseText 2s infinite;
 }
 
 @keyframes pulseText {
     0%, 100% {transform: scale(1);}
-    50% {transform: scale(1.05);}
+    50% {transform: scale(1.08);}
 }
 
+/* Подзаголовок */
 p {
-    font-size: 1.3em;
+    font-size: 1.4em;
     margin-bottom: 30px;
     color: #fff;
-    text-shadow: 1px 1px 5px #000;
+    text-shadow: 1px 1px 6px #000;
     animation: fadeInText 2s ease forwards;
 }
 
@@ -78,19 +84,21 @@ p {
     100% {opacity:1;}
 }
 
+/* Кнопка */
 a.button {
-    background: linear-gradient(45deg, #ff0080, #ff8c00, #40e0d0);
-    background-size: 300% 300%;
+    background: linear-gradient(45deg, #ff0080, #ff8c00, #40e0d0, #ffd700);
+    background-size: 400% 400%;
     color: #fff;
-    padding: 18px 40px;
+    padding: 20px 45px;
     text-decoration: none;
     font-weight: bold;
     border-radius: 50px;
     display: inline-block;
-    font-size: 1.2em;
-    box-shadow: 0 0 20px rgba(255,255,255,0.5);
-    animation: pulseButton 2s infinite;
+    font-size: 1.3em;
+    box-shadow: 0 0 25px rgba(255,255,255,0.6);
+    animation: pulseButton 3s infinite;
     transition: transform 0.3s;
+    margin-bottom: 20px;
 }
 
 a.button:hover {
@@ -104,10 +112,21 @@ a.button:hover {
     100%{background-position:0% 50%;}
 }
 
+/* Таймер */
+#timer {
+    font-size: 2.2em;
+    color: #ff4444;
+    font-weight: bold;
+    text-shadow: 1px 1px 6px #000;
+    animation: fadeInText 2s ease forwards;
+}
+
+/* Адаптивность */
 @media (max-width: 600px) {
     h1 {font-size: 2em;}
     p {font-size: 1em;}
-    a.button {padding: 15px 25px; font-size: 1em;}
+    a.button {padding: 15px 30px; font-size: 1em;}
+    #timer {font-size: 1.6em;}
 }
 </style>
 </head>
@@ -117,7 +136,28 @@ a.button:hover {
     <h1>Quer se divertir e ganhar?</h1>
     <p>Experimente nossa sorte e dicas exclusivas!</p>
     <a class="button" href="https://t.me/+G6kNq3Ua5CVlYjE1" target="_blank">Acesse nosso Telegram</a>
+    <div id="timer">09:00</div>
 </div>
+
+<script>
+// Таймер обратного отсчёта 9 минут
+let time = 9 * 60;
+const timerEl = document.getElementById('timer');
+
+function updateTimer() {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    timerEl.textContent = 
+        `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+    if (time > 0) {
+        time--;
+        setTimeout(updateTimer, 1000);
+    } else {
+        timerEl.textContent = "Tempo esgotado!";
+    }
+}
+
+updateTimer();
+</script>
 </body>
 </html>
-
